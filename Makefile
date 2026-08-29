@@ -5,12 +5,12 @@ COVGCNO=*.gcno
 COVGCDA=*.gcda
 COVGNRL=coverage/ report.css coverage.info
 
-SRCS=
+SRCS=src/main.c
 OBJS=$(SRCS:.c=.o)
 TGT=my_find
 
 $(TGT): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TGT) $^
+	$(CC) $(CFLAGS) $^ -o $(TGT)
 
 debug: CFLAGS += -g -fsanitize=address
 debug: LDFLAGS += -fsanitize=address

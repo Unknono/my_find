@@ -1,8 +1,11 @@
 #include <stdio.h>
 
-int main(void)
+int main(int argc, char* argv[])
 {
-    printf("%s\n", "Hello, World!");
+    for (int i = 0; i < argc; i++)
+    {
+        printf("Argument %d: %s\n", i + 1, argv[i]);
+    }
 
     return 0;
 }

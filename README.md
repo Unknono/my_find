@@ -1,6 +1,6 @@
 # my_find
 Recreation of the "find" command in Unix.
-Options not made through this project: -Olevel
+The expression options retained for this minimalist version are the global options.
 
 ### Disclaimer
 This project is a self-recreation of the `find` command in Unix.
