@@ -5,7 +5,7 @@ COVGCNO=*.gcno
 COVGCDA=*.gcda
 COVGNRL=coverage/ report.css coverage.info
 
-SRCS=src/main.c
+SRCS=src/main.c src/args.c src/structs.c
 OBJS=$(SRCS:.c=.o)
 TGT=my_find
 
