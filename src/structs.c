@@ -89,4 +89,5 @@ void print_startpoints(struct startpoint* sp)
 void dealloc_params(struct params* params)
 {
     dealloc_startpoints(params->startpoints);
+    free(params);
 }

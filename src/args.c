@@ -10,7 +10,7 @@ struct params* parse_args(int argc, char** argv)
 
     // parse startpoints
     int i = 0;
-    while (i < argc && argv[i][0] == '-')
+    while (i < argc && argv[i][0] != '-')
     {
         if (!add_startpoint(&params, argv[i]))
         {
@@ -24,8 +24,10 @@ struct params* parse_args(int argc, char** argv)
     // parse options
     while (i < argc && argv[i][0] == '-')
     {
-        if (strstr(argv[i], "help"))
+        if (strcmp(argv[i], "-help") == 0 || strcmp(argv[i], "--help") == 0)
             params->help = true;
+
+        i++;
     }
 
     return params;
