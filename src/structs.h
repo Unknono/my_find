@@ -6,8 +6,8 @@
 // params processing
 struct startpoint
 {
-    char* name;
-    struct startpoint* next;
+    char *name;
+    struct startpoint *next;
 };
 
 struct params
@@ -16,12 +16,12 @@ struct params
     bool help;
 
     // files
-    struct startpoint* startpoints;
+    struct startpoint *startpoints;
 };
 
-struct params* init_params(void);
-bool add_startpoint(struct params** params, char* startpoint);
-void print_startpoints(struct startpoint* sp);
-void dealloc_params(struct params* opt);
+struct params *init_params(void);
+bool add_startpoint(struct params **params, char *startpoint);
+void print_startpoints(struct startpoint *sp);
+void dealloc_params(struct params *opt);
 
 #endif /* !STRUCTS_H */

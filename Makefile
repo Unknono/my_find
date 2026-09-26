@@ -1,13 +1,15 @@
 CC=gcc
 CFLAGS=-std=c99 -pedantic -Werror -Wall -Wextra -Wvla
 
-COVGCNO=*.gcno
-COVGCDA=*.gcda
+COVGCNO=src/*.gcno
+COVGCDA=src/*.gcda
 COVGNRL=coverage/ report.css coverage.info
 
-SRCS=src/main.c src/args.c src/structs.c
+SRCS=src/my_find.c src/args.c src/structs.c src/error.c src/display_files.c
 OBJS=$(SRCS:.c=.o)
 TGT=my_find
+
+.PHONY: $(TGT) debug check clean
 
 $(TGT): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $(TGT)
@@ -17,15 +19,11 @@ debug: LDFLAGS += -fsanitize=address
 debug: $(OBJS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $(TGT) $^
 
-# UNITARY TESTSUITE ONLY
-# check: CFLAGS += --coverage -fPIC
-# check: LDLIBS += -lgcov
-# check: LDFLAGS += --coverage
-
+check: CFLAGS += --coverage -fPIC
+check: LDLIBS += -lgcov
+check: LDFLAGS += --coverage
 check: tests/testsuite.sh $(TGT)
-	./tests/testsuite.sh
-
-.PHONY: clean
+	cd tests/ && ./testsuite.sh && cd ..
 
 clean:
 	$(RM) $(TGT) debug $(OBJS) $(COVGCNO) $(COVGCDA) $(COVGNRL)

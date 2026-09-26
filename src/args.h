@@ -3,6 +3,6 @@
 
 #include "structs.h"
 
-struct params* parse_args(int argc, char** argv);
+struct params *parse_args(int argc, char **argv);
 
 #endif /* !ARGS_H */

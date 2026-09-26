@@ -1,12 +1,16 @@
-#include "structs.h"
-
 #include <string.h>
 
-struct params* parse_args(int argc, char** argv)
+#include "error.h"
+#include "structs.h"
+
+struct params *parse_args(int argc, char **argv)
 {
-    struct params* params = init_params();
+    struct params *params = init_params();
     if (!params)
+    {
+        throw_error("parse_args: init_params() failed.");
         return NULL;
+    }
 
     // parse startpoints
     int i = 0;
@@ -14,6 +18,7 @@ struct params* parse_args(int argc, char** argv)
     {
         if (!add_startpoint(&params, argv[i]))
         {
+            throw_error("parse_args: add_startpoint() failed.");
             dealloc_params(params);
             return NULL;
         }
