@@ -32,8 +32,8 @@ int main(int argc, char *argv[])
         return throw_error("main: parse_args() failed.");
 
     // DEBUG
-    printf("Help: %s\n", params->help ? "true" : "false");
-    print_startpoints(params->startpoints);
+    // printf("Help: %s\n", params->help ? "true" : "false");
+    // print_startpoints(params->startpoints);
 
     // first check if help is true
     if (params->help)

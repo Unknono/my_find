@@ -38,6 +38,15 @@ static int get_display_dir_content(char *dir)
 
 int display_files(struct startpoint *sps)
 {
+    // no startpoints: default behavior (".")
+    if (!sps)
+    {
+        if (get_display_dir_content(".") != 0)
+            return throw_error("display_files: recursive call failed.");
+
+        return 0;
+    }
+
     struct startpoint *curr = sps;
     while (curr)
     {
