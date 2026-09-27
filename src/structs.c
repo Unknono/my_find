@@ -25,6 +25,7 @@ static void dealloc_startpoints(struct startpoint *sp)
         {
             struct startpoint *to_delete = sp;
             sp = sp->next;
+            free(to_delete->name);
             free(to_delete);
         }
     }

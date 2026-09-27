@@ -10,6 +10,38 @@ NO_COLOR='\033[0m'
 correct=0
 total=0
 
+print_pass() {
+    if [ "$exp" == "" ]; then
+        exp="nothing"
+    fi
+
+    if [ "$act" == "" ]; then
+        act="nothing"
+    fi
+
+    if [ "$opts" == "" ]; then
+        echo -e "${GREEN}[PASS]${LIGHT_GREEN} ./my_find "$dir"${NO_COLOR}"
+    else
+        echo -e "${GREEN}[PASS]${LIGHT_GREEN} ./my_find "$dir" "$opts"${NO_COLOR}"
+    fi
+}
+
+print_fail() {
+    if [ "$exp" == "" ]; then
+        exp="nothing"
+    fi
+
+    if [ "$act" == "" ]; then
+        act="nothing"
+    fi
+
+    if [ "$opts" == "" ]; then
+        echo -e "${RED}[FAIL]${LIGHT_RED} ./my_find "$dir" - Expected: "$exp". Got: "$act"${NO_COLOR}"
+    else
+        echo -e "${RED}[FAIL]${LIGHT_RED} ./my_find "$dir" "$opts" - Expected: "$exp". Got: "$act"${NO_COLOR}"
+    fi
+}
+
 test_find() {
     dir="$1"
     shift
@@ -24,26 +56,29 @@ test_find() {
     fi
 
     if [ "$act" == "$exp" ]; then
-        if [ "$opts" == "" ]; then
-            echo -e "${GREEN}[PASS]${LIGHT_GREEN} ./my_find "$dir"${NO_COLOR}"
-        else
-            echo -e "${GREEN}[PASS]${LIGHT_GREEN} ./my_find "$dir" "$opts"${NO_COLOR}"
-        fi
+        print_pass
         correct=$(($correct + 1))
     else
-        if [ "$opts" == "" ]; then
-            echo -e "${RED}[FAIL]${LIGHT_RED} ./my_find "$dir" - Expected: "$exp". Got: "$act"${NO_COLOR}"
-        else
-            echo -e "${RED}[FAIL]${LIGHT_RED} ./my_find "$dir" "$opts" - Expected: "$exp". Got: "$act"${NO_COLOR}"
-        fi
+        print_fail
     fi
 
     total=$(($total + 1))
 }
 
-# ====================================
+summary() {
+    if [ "$total" -eq "$correct" ]; then
+        echo -e "${GREEN}[ALL TESTS PASSED]${NO_COLOR}"
+    else
+        echo -e "${RED}[SOME TESTS FAILED]${NO_COLOR}"
+    fi
+}
+
+# ============ SIMPLE TESTS ============
 
 test_find "."
 test_find "." "-name caca"
 test_find "." "-iname" "caca"
 test_find "/mnt/c/Users/noefr/Downloads/" "-name" "caca"
+
+# ============ SUMMARY ============
+summary

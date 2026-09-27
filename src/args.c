@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 200809L
+
 #include <string.h>
 
 #include "error.h"
@@ -16,7 +18,7 @@ struct params *parse_args(int argc, char **argv)
     int i = 0;
     while (i < argc && argv[i][0] != '-')
     {
-        if (!add_startpoint(&params, argv[i]))
+        if (!add_startpoint(&params, strdup(argv[i])))
         {
             throw_error("parse_args: add_startpoint() failed.");
             dealloc_params(params);
